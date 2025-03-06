@@ -22,7 +22,65 @@ const FriendReq = () => {
             height={40}
             className="w-10 h-10 rounded-full object-cover"
           />
-          <span className="font-semibold">Marshal Mathers</span>
+          <span className="font-semibold text-sm">Marshal Mathers</span>
+        </div>
+
+        <div className="flex gap-3 justify-end">
+          <Image
+            src="/accept.png"
+            alt=""
+            width={20}
+            height={20}
+            className="cursor-pointer"
+          />
+          <Image
+            src="/reject.png"
+            alt=""
+            width={20}
+            height={20}
+            className="cursor-pointer"
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Image
+            src="https://images.pexels.com/photos/28643822/pexels-photo-28643822/free-photo-of-urban-architectural-scene-with-dramatic-shadows.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            alt=""
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <span className="font-semibold text-sm">Marshal Mathers</span>
+        </div>
+
+        <div className="flex gap-3 justify-end">
+          <Image
+            src="/accept.png"
+            alt=""
+            width={20}
+            height={20}
+            className="cursor-pointer"
+          />
+          <Image
+            src="/reject.png"
+            alt=""
+            width={20}
+            height={20}
+            className="cursor-pointer"
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Image
+            src="https://images.pexels.com/photos/28643822/pexels-photo-28643822/free-photo-of-urban-architectural-scene-with-dramatic-shadows.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            alt=""
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <span className="font-semibold text-sm">Marshal Mathers</span>
         </div>
 
         <div className="flex gap-3 justify-end">
