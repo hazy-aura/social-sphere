@@ -1,7 +1,6 @@
 import Feed from "@/components/Feed";
 import LeftMenu from "@/components/LeftMenu";
 import RightMenu from "@/components/RightMenu";
-import exp from "constants";
 import Image from "next/image";
 
 function ProfilePage() {
