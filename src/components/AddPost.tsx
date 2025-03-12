@@ -1,6 +1,11 @@
+
+import prisma from "@/lib/Client";
+import { auth } from "@clerk/nextjs/server";
+
 import Image from "next/image";
 
 function AddPost() {
+  
   return (
     <div className="p-4 bg-white shadow-md rounded-lg flex gap-4  justify-between text-sm">
       {/* AVATAR */}
@@ -17,10 +22,11 @@ function AddPost() {
       {/* POST */}
       <div className="flex-1">
         {/* TXT INPUT */}
-        <div className="flex gap-4">
+        <form action="" className="flex gap-4">
           <textarea
             placeholder="What's on your mind?"
             className="flex-1 bg-slate-100 rounded-lg p-2"
+            name="desc"
           ></textarea>
           <Image
             src="/emoji.png"
@@ -29,17 +35,17 @@ function AddPost() {
             width={20}
             height={20}
           />
-        </div>
+          <button>Send</button>
+        </form>
 
         {/* POST OPTIONS */}
-        
-        
+
         <div className="flex items-center gap-4 mt-4 text-gray-400 flex-wrap">
           <div className="flex items-center gap-2 cursor-pointer">
             <Image src="/addimage.png" alt="" width={20} height={20} />
             Photo
           </div>
-        
+
           <div className="flex items-center gap-2 cursor-pointer">
             <Image src="/addVideo.png" alt="" width={20} height={20} />
             Video
@@ -54,14 +60,7 @@ function AddPost() {
             <Image src="/addevent.png" alt="" width={20} height={20} />
             Event
           </div>
-
-        
-          
         </div>
-
-      
-       
-
       </div>
     </div>
   );
