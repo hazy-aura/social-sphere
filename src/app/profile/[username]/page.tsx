@@ -23,6 +23,7 @@ async function ProfilePage({params}:{params:{username:string}}) {
   });
 
   if(!user) return notFound();
+  
   return (
     <div className="flex gap-6 pt-6">
       <div className="hidden xl:block w-[20%]">
