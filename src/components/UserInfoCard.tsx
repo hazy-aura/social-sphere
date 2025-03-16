@@ -3,6 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 const UserInfoCard = ({ user }: { user: User }) => {
+
+  const createdAtDate =new Date(user.createdAt);
+
+  const formattedDate = createdAtDate.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+   
   return (
     <>
       <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
@@ -62,7 +71,7 @@ const UserInfoCard = ({ user }: { user: User }) => {
             
             <div className="flex gap-1 items-center">
               <Image src="/date.png" alt="" width={16} height={16} />
-              <span>Joined October 2020</span>
+              <span>Joined {formattedDate} </span>
             </div>
           </div>
           <button className=" bg-blue-400 text-white text-sm rounded-md p-2">
