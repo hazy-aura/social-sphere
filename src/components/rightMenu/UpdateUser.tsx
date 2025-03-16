@@ -1,8 +1,10 @@
+import React from 'react';
+
 const UpdateUser = () => {
     return (
         <div>
-            <h2>Update User</h2>
-            
+            <h1>Update User</h1>
+            {/* Add your form or update logic here */}
         </div>
     );
 };

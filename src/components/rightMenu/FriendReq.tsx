@@ -1,7 +1,25 @@
-import Image from "next/image";
+import prisma from "@/lib/Client";
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
+import FriendReqList from "./FriendReqList";
 
-const FriendReq = () => {
+
+const FriendReq = async () => {
+  const { userId } = auth();
+  if (!userId) {
+    return null;
+  }
+  const reqs = await prisma.followRequest.findMany({
+    where:{
+      receiverId: userId,
+    },
+    include:{
+      sender:true
+    },
+  });
+
+  if(reqs.length===0) return null;
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
       {/* TOP */}
@@ -13,93 +31,7 @@ const FriendReq = () => {
       </div>
 
       {/* USER */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src="https://images.pexels.com/photos/28643822/pexels-photo-28643822/free-photo-of-urban-architectural-scene-with-dramatic-shadows.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <span className="font-semibold text-sm">Marshal Mathers</span>
-        </div>
-
-        <div className="flex gap-3 justify-end">
-          <Image
-            src="/accept.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-          <Image
-            src="/reject.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-        </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src="https://images.pexels.com/photos/28643822/pexels-photo-28643822/free-photo-of-urban-architectural-scene-with-dramatic-shadows.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <span className="font-semibold text-sm">Marshal Mathers</span>
-        </div>
-
-        <div className="flex gap-3 justify-end">
-          <Image
-            src="/accept.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-          <Image
-            src="/reject.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-        </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src="https://images.pexels.com/photos/28643822/pexels-photo-28643822/free-photo-of-urban-architectural-scene-with-dramatic-shadows.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-            alt=""
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <span className="font-semibold text-sm">Marshal Mathers</span>
-        </div>
-
-        <div className="flex gap-3 justify-end">
-          <Image
-            src="/accept.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-          <Image
-            src="/reject.png"
-            alt=""
-            width={20}
-            height={20}
-            className="cursor-pointer"
-          />
-        </div>
-      </div>
+      {<FriendReqList requests={reqs}  />  }
     </div>
   );
 };
