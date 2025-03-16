@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import Ad from "./Ad";
+import Ad from "../Ad";
 import Birthdays from "./Birthdays";
 import FriendReq from "./FriendReq";
 import UserInfoCard from "./UserInfoCard";
