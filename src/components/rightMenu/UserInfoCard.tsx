@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import UserInfoCardInteraction from "./UserInfoCardInteraction";
 
 const UserInfoCard = async ({ user }: { user: User }) => {
   const createdAtDate = new Date(user.createdAt);
@@ -112,12 +113,13 @@ const UserInfoCard = async ({ user }: { user: User }) => {
               <span>Joined {formattedDate} </span>
             </div>
           </div>
-          <button className=" bg-blue-400 text-white text-sm rounded-md p-2">
-            Follow
-          </button>
-          <span className="text-red-500 self-end text-xs cursor-pointer">
-            Block User
-          </span>
+          <UserInfoCardInteraction
+            userId={user.id}
+            currentUserId={currentUserId}
+            isUserBlocked={isUserBlocked}
+            isFollowing={isFollowing}
+            isFollowingRequestSent={isFollowingRequestSent}
+          />
         </div>
       </div>
     </>
