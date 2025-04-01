@@ -2,12 +2,30 @@
 
 import { updateProfile } from "@/lib/actions";
 import { User } from "@prisma/client";
+import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
+import { set } from "zod";
 
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
+  const [cover, setCover] = useState<any>(user.cover);
+  
+  const [state, formAction] = useActionState(updateProfile, {
+    success: false,
+    error: false,
+  });
+
+  const router = useRouter();
+
+  const handleClose = () => {
+    setOpen(false);
+    state.success && router.refresh();
+  }
+  
+
+
   return (
     <>
       <div className="">
@@ -20,7 +38,9 @@ const UpdateUser = ({ user }: { user: User }) => {
         {open && (
           <div className="absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-65 flex justify-center items-center z-50">
             <form
-              action={updateProfile}
+              action={(formData) =>
+                formAction({ formData, cover: cover?.secure_url || "" })
+              }
               className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
             >
               {/* TITLE */}
@@ -30,22 +50,34 @@ const UpdateUser = ({ user }: { user: User }) => {
               </div>
               {/* COVER PIC UPLOAD */}
 
-              <div className="flex flex-col gap-4 my-4">
-                <label htmlFor=""> Cover Picture</label>
-                <div className="flex items-center gap-2 cursor-pointer">
-                  <Image
-                    src={user.cover || "/noCover.png"}
-                    width={48}
-                    height={32}
-                    alt=""
-                    className="w-12 h-8 rounded-md object-cover"
-                  />
-                  <span className="text-xs underline text-gray-600">
-                    {" "}
-                    Change
-                  </span>
-                </div>
-              </div>
+              <CldUploadWidget
+                uploadPreset="socialsphere"
+                onSuccess={(result) => setCover(result?.info)}
+              >
+                {({ open }) => {
+                  return (
+                    <div
+                      className="flex flex-col gap-4 my-4"
+                      onClick={() => open()}
+                    >
+                      <label htmlFor=""> Cover Picture</label>
+                      <div className="flex items-center gap-2 cursor-pointer">
+                        <Image
+                          src={user.cover || "/noCover.png"}
+                          width={48}
+                          height={32}
+                          alt=""
+                          className="w-12 h-8 rounded-md object-cover"
+                        />
+                        <span className="text-xs underline text-gray-600">
+                          {" "}
+                          Change
+                        </span>
+                      </div>
+                    </div>
+                  );
+                }}
+              </CldUploadWidget>
 
               {/* WRAPPER */}
               <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
@@ -144,6 +176,16 @@ const UpdateUser = ({ user }: { user: User }) => {
               <button className="bg-blue-500 text-white p-2 mt-2 rounded-md">
                 <span>Update</span>
               </button>
+              {state.success && (
+                <span className="text-green-500 text-sm mt-2">
+                  Profile Updated
+                </span>
+              )}
+              {state.error && (
+                <span className="text-red-500 text-sm mt-2">
+                  Something Went wrong
+                </span>
+              )}
 
               <div
                 className="absolute text-xl right-2 top-3 cursor-pointer"

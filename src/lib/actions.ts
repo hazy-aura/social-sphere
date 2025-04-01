@@ -151,9 +151,15 @@ export const declineFollowRequest = async (userId: string) => {
   }
 };
 
-export const updateProfile = async (formData: FormData) => {
+export const updateProfile = async (prevState:{success:boolean, error:boolean,}, payload: {formData: FormData,cover:string}) => {
+  
+  const {formData,cover} = payload;
+  
   const fields = Object.fromEntries(formData);
-  console.log(fields);
+  const filteredFields = Object.fromEntries(
+    Object.entries(fields).filter(([_,value])=>value !== "")
+  );
+
 
   const Profile = z.object({
     cover: z.string().optional(),
@@ -166,14 +172,15 @@ export const updateProfile = async (formData: FormData) => {
     website: z.string().max(60).optional(),
   });
 
-  const validatedProfile = Profile.safeParse(fields);
+  const validatedProfile = Profile.safeParse({cover, ...filteredFields});
 
   if (!validatedProfile.success) {
     console.log(validatedProfile.error.flatten().fieldErrors);
-    return "error";
+    return {success:false, error:true};
   }
   const { userId } = auth();
-  if (!userId) return "user not authenticated";
+  if (!userId) return {success:false, error:true};
+
 
   try {
     await prisma.user.update({
@@ -182,7 +189,11 @@ export const updateProfile = async (formData: FormData) => {
       },
       data: validatedProfile.data,
     });
+      return {success:true, error:false};
+
   } catch (err) {
     console.log(err);
+     return {success:false, error:true};
+
   }
 };
