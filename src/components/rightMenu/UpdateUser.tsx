@@ -7,11 +7,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
 import { set } from "zod";
+import UpdateButton from "./UpdateButton";
 
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState<any>(user.cover);
-  
+
   const [state, formAction] = useActionState(updateProfile, {
     success: false,
     error: false,
@@ -22,9 +23,7 @@ const UpdateUser = ({ user }: { user: User }) => {
   const handleClose = () => {
     setOpen(false);
     state.success && router.refresh();
-  }
-  
-
+  };
 
   return (
     <>
@@ -173,9 +172,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                   />
                 </div>
               </div>
-              <button className="bg-blue-500 text-white p-2 mt-2 rounded-md">
-                <span>Update</span>
-              </button>
+             <UpdateButton />
               {state.success && (
                 <span className="text-green-500 text-sm mt-2">
                   Profile Updated
