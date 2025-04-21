@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import prisma from "./Client";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 export const switchFollow = async (userId: string) => {
   const authData = auth();
@@ -197,3 +198,92 @@ export const updateProfile = async (prevState:{success:boolean, error:boolean,},
 
   }
 };
+
+export const switchLike = async (postId:number)=>{
+  const {userId} = auth();
+  if(!userId) throw new Error("User is not authenticated");
+
+  try{
+    const existingLike= await prisma.like.findFirst({
+      where:{
+        postId,
+        userId
+      }
+    })
+
+    if(existingLike){
+      await prisma.like.delete({
+        where:{
+          id: existingLike.id,
+        }
+      })
+    }
+    else{
+      await prisma.like.create({
+        data:{
+          postId,userId
+        }
+      })
+    }
+  }
+  catch(err){
+ console.log(err);
+ throw new Error("Something Went Wrong");
+  }
+}
+
+export const addComment= async(postId: number, desc:string)=>{
+  
+  const {userId} = auth();
+  if(!userId) throw new Error("User is not authenticated");
+
+  try{
+    const createdComment = await prisma.comment.create({
+      data:{
+        desc,
+        userId,
+        postId
+      },
+      include:{
+        user:true,
+      }
+    });
+    return createdComment;
+  }
+  catch(err){
+    console.log(err);
+    throw new Error("Something Went Wrong");
+    
+  }
+  
+}
+
+export const addPost = async(formData: FormData, img:string)=>{
+  const desc = formData.get("desc") as string;
+ const Desc = z.string().min(1).max(300);
+ const validatedDesc = Desc.safeParse(desc);
+  if(!validatedDesc.success) {
+    console.log("Description is not valid");
+    return;
+  }
+  const {userId} = auth();
+  if(!userId) throw new Error("User is not authenticated");
+
+  try{
+    await prisma.post.create({
+      data:{
+        desc: validatedDesc.data,
+        userId,
+        img
+      }
+    });
+    revalidatePath("/");
+  }
+  catch(err){
+    console.log(err);
+    throw new Error("Something Went Wrong");
+  }
+
+  
+
+}
