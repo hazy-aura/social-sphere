@@ -12,7 +12,7 @@ function Navbar(){
         <div className=" h-24 flex items-center justify-between"> 
         {/* Left */}
         <div className=" md:hidden lg:block w-[20%]" > 
-        <Link href="/" className='font-bold text-xl text-blue-600'> SOCIAL SPHERE</Link>
+        <Link href="/" className='font-bold text-xl text-stone-900 '> SocialSphere</Link>
         </div>
 
         {/* CENTER */}
