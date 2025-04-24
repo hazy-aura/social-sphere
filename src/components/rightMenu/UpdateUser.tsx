@@ -29,7 +29,7 @@ const UpdateUser = ({ user }: { user: User }) => {
     <>
       <div className="">
         <span
-          className=" text-blue-500 cursor-pointer text-xs"
+          className="text-blue-500 dark:text-blue-400 cursor-pointer text-xs hover:underline"
           onClick={() => setOpen(true)}
         >
           Update
@@ -40,11 +40,11 @@ const UpdateUser = ({ user }: { user: User }) => {
               action={(formData) =>
                 formAction({ formData, cover: cover?.secure_url || "" })
               }
-              className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
+              className="p-12 bg-white dark:bg-gray-800 rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative dark:text-gray-200"
             >
               {/* TITLE */}
               <h1>Update Profile</h1>
-              <div className="mt-4 text-xs text-gray-500">
+              <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
                 Use the navbar profile to change the avatar or username.
               </div>
               {/* COVER PIC UPLOAD */}
@@ -68,7 +68,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                           alt=""
                           className="w-12 h-8 rounded-md object-cover"
                         />
-                        <span className="text-xs underline text-gray-600">
+                        <span className="text-xs underline text-gray-600 dark:text-gray-400">
                           {" "}
                           Change
                         </span>
@@ -82,92 +82,92 @@ const UpdateUser = ({ user }: { user: User }) => {
               <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     First Name
                   </label>
                   <input
                     type="text"
                     placeholder={user.name || "John"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="name"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     Last Name
                   </label>
                   <input
                     type="text"
                     placeholder={user.surname || "Doe"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="surname"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     Description
                   </label>
                   <input
                     type="text"
                     placeholder={user.description || "Life is Unfair.."}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="description"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     City
                   </label>
                   <input
                     type="text"
                     placeholder={user.city || "Dehradun"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="city"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     School
                   </label>
                   <input
                     type="text"
                     placeholder={user.school || "CST"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="school"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     Work
                   </label>
                   <input
                     type="text"
                     placeholder={user.work || "Wipro"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="work"
                   />
                 </div>
                 {/* INPUT */}
                 <div className="flex flex-col gap-4">
-                  <label htmlFor="" className="text-xs text-gray-500">
+                  <label htmlFor="" className="text-xs text-gray-500 dark:text-gray-400">
                     {" "}
                     Website
                   </label>
                   <input
                     type="text"
                     placeholder={user.website || "www.goooogle.com"}
-                    className="ring-1 ring-gray-300  p-[13px] rounded-md text-sm"
+                    className="ring-1 ring-gray-300 dark:ring-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 p-[13px] rounded-md text-sm"
                     name="website"
                   />
                 </div>
@@ -185,7 +185,7 @@ const UpdateUser = ({ user }: { user: User }) => {
               )}
 
               <div
-                className="absolute text-xl right-2 top-3 cursor-pointer"
+                className="absolute text-xl right-2 top-3 cursor-pointer text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
                 onClick={handleClose}
               >
                 X

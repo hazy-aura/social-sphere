@@ -67,7 +67,7 @@ const UserInfoCardInteraction = ({
   return (
     <>
       <form action={follow}>
-        <button className=" w-full bg-blue-400 text-white text-sm rounded-md p-2">
+        <button className="w-full bg-blue-400 hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded-md p-2 transition-colors">
           {optimisticState.following
             ? "Unfollow"
             : optimisticState.followRequestSent
@@ -77,7 +77,7 @@ const UserInfoCardInteraction = ({
       </form>
       <form action={block} className="self-end">
         <button>
-          <span className="text-red-500  text-xs cursor-pointer">
+          <span className="text-red-500 dark:text-red-400 text-xs cursor-pointer hover:underline">
             {optimisticState.blocked ? "Unblock" : "Block"}
           </span>
         </button>

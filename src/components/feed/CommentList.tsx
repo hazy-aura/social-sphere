@@ -60,7 +60,7 @@ function CommentList({
   );
 
   return (
-    <div>
+    <div className="dark:text-gray-200">
       {user && (
         <div className="flex items-center gap-4">
           <Image
@@ -72,12 +72,12 @@ function CommentList({
           />
           <form
             action={add}
-            className="flex flex-1 items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full"
+            className="flex flex-1 items-center justify-between bg-slate-100 dark:bg-gray-700 rounded-xl text-sm px-6 py-2 w-full"
           >
             <input
               type="text"
               placeholder="Write a comment..."
-              className="bg-transparent outline-none flex-1"
+              className="bg-transparent outline-none flex-1 dark:text-gray-200 dark:placeholder-gray-400"
               onChange={(e) => setDesc(e.target.value)}
             />
             <Image
@@ -106,18 +106,18 @@ function CommentList({
             />
 
             {/* DeSC */}
-            <div className="flex flex-col gap-2 flex-1    ">
-              <span className="font-medium">
+            <div className="flex flex-col gap-2 flex-1">
+              <span className="font-medium dark:text-gray-200">
                 {" "}
                 {comment.user.name && comment.user.surname
                   ? comment.user.name + " " + comment.user.surname
                   : comment.user.username}
               </span>
-              <p>
+              <p className="dark:text-gray-300">
                 {comment.desc}
               </p>
-              <div className=" flex items-center gap-8 text-xs text-gray-500 mt-2">
-                <div className="flex items-center gap-4 ">
+              <div className="flex items-center gap-8 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <div className="flex items-center gap-4">
                   <Image
                     src="/like.png"
                     alt=""
@@ -125,8 +125,8 @@ function CommentList({
                     width={12}
                     className="w-6 h-6 rounded-full"
                   />
-                  <span className="text-gray-300">|</span>
-                  <span className="text-gray-500">123 Likes</span>
+                  <span className="text-gray-300 dark:text-gray-600">|</span>
+                  <span className="text-gray-500 dark:text-gray-400">123 Likes</span>
                 </div>
                 <div>Reply</div>
               </div>

@@ -81,15 +81,15 @@ function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: stri
             alt=""
             width={80}
             height={80}
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full ring-2 ring-blue-300 dark:ring-blue-700 object-cover"
             onClick={()=>open()}
           />
           {img? <form action={add}>
-            <button className="text-xs bg-blue-500 p-1 rounded-md text-white">send</button>
-          </form>:(<span className="font-medium">
+            <button className="text-xs bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 p-1 rounded-md text-white transition-colors">send</button>
+          </form>:(<span className="font-medium dark:text-gray-200">
             Add a Story
           </span>)}
-          <div className="absolute text-6xl text-gray-200 top-1 opacity-50">+</div>
+          <div className="absolute text-6xl text-gray-200 dark:text-gray-700 top-1 opacity-50">+</div>
         </div>
               );
             }}
@@ -105,9 +105,9 @@ function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: stri
             alt=""
             width={80}
             height={80}
-            className="w-20 h-20 rounded-full ring-2"
+            className="w-20 h-20 rounded-full ring-2 ring-blue-300 dark:ring-blue-700"
           />
-          <span className="font-medium">
+          <span className="font-medium dark:text-gray-200">
             {story.user.name || story.user.username}
           </span>
         </div>

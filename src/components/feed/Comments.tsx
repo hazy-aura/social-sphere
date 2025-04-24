@@ -13,7 +13,7 @@ async function Comment({ postId }: { postId: number }) {
   });
 
   return (
-    <div className="">
+    <div className="dark:text-gray-200">
       {/* WRITE */}
       <CommentList comments={comments} postId={postId} />
     </div>

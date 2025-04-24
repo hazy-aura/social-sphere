@@ -36,9 +36,9 @@ const FriendReqList = ({ requests }: { requests: RequestWithUser[] }) => {
   );
 
   return (
-    <div>
+    <div className="dark:text-gray-200">
       {optimisticRequest.map((request) => (
-        <div className="flex items-center justify-between" key={request.id}>
+        <div className="flex items-center justify-between mb-4" key={request.id}>
           <div className="flex items-center gap-4">
             <Image
               src={request.sender.avatar || "/noAvatar.png"}
@@ -47,7 +47,7 @@ const FriendReqList = ({ requests }: { requests: RequestWithUser[] }) => {
               height={40}
               className="w-10 h-10 rounded-full object-cover"
             />
-            <span className="font-semibold text-sm">
+            <span className="font-semibold text-sm dark:text-gray-200">
               {request.sender.name && request.sender.surname
                 ? request.sender.name + " " + request.sender.surname
                 : request.sender.username}
@@ -56,25 +56,27 @@ const FriendReqList = ({ requests }: { requests: RequestWithUser[] }) => {
 
           <div className="flex gap-3 justify-end">
             <form action={()=>accept(request.id, request.senderId)}> 
-                <button>
+                <button className="p-1 rounded-full hover:bg-green-100 dark:hover:bg-green-900 transition-colors">
             <Image
               src="/accept.png"
-              alt=""
+              alt="Accept"
               width={20}
               height={20}
               className="cursor-pointer"
+              title="Accept friend request"
             />
             </button>
             </form>
 
             <form action={()=>decline(request.id, request.senderId)}> 
-            <button>
+            <button className="p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900 transition-colors">
             <Image
               src="/reject.png"
-              alt=""
+              alt="Reject"
               width={20}
               height={20}
               className="cursor-pointer"
+              title="Reject friend request"
             />
              </button>
              </form>

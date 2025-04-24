@@ -13,7 +13,7 @@ type FeedPostType = PostType & { user: User } & {
 function Post({ post }: { post: FeedPostType }) {
   const { userId } = auth();
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 dark:text-gray-200">
       {/* USER */}
       <div className="flex items-center justify-between ">
         <div className="flex items-center gap-4">
@@ -24,7 +24,7 @@ function Post({ post }: { post: FeedPostType }) {
             height={40}
             className="h-10 w-10 rounded-full"
           />
-          <span className="font-medium">
+          <span className="font-medium dark:text-gray-200">
             {post.user.name && post.user.surname
               ? post.user.name + " " + post.user.surname
               : post.user.username}
@@ -46,18 +46,18 @@ function Post({ post }: { post: FeedPostType }) {
             />
           </div>
         )}
-        <p>{post.desc}</p>
+        <p className="dark:text-gray-300">{post.desc}</p>
       </div>
 
       {/* INTERACTION */}
-     <Suspense fallback="Loading...">
+     <Suspense fallback={<div className="dark:text-gray-400">Loading...</div>}>
      <PostInteraction
         postId={post.id}
         likes={post.likes.map((like) => like.userId)}
         commentNumber={post._count.comments}
       />
       </Suspense>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<div className="dark:text-gray-400">Loading...</div>}>
       <Comment postId={post.id} />
       </Suspense>
      

@@ -4,7 +4,7 @@ import MobileMenu from './MobileMenu';
 import Image from 'next/image';
 import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
-
+import ThemeToggle from './ThemeToggle';
 
 
 function Navbar(){
@@ -12,13 +12,13 @@ function Navbar(){
         <div className=" h-24 flex items-center justify-between"> 
         {/* Left */}
         <div className=" md:hidden lg:block w-[20%]" > 
-        <Link href="/" className='font-bold text-xl text-stone-900 '> SocialSphere</Link>
+        <Link href="/" className='font-bold text-xl text-stone-900 dark:text-white'> SocialSphere</Link>
         </div>
 
         {/* CENTER */}
         <div className="hidden md:flex w-[50%] text-sm items-center justify-between" >
                 {/* LINKS */}
-            <div className='flex gap-6 text-gray-600'>
+            <div className='flex gap-6 text-gray-600 dark:text-gray-300'>
             <Link href='/' className='flex items-center gap-2'> 
             <Image src="/home.png" alt="Homepage" width={16} height={16} />
             <span>
@@ -40,8 +40,8 @@ function Navbar(){
             </span>
             </Link>
             </div>  
-            <div className='hidden xl:flex p-1.5 bg-slate-100 items-center rounded-xl'>
-            <input type="text" placeholder='Search' className='bg-transparent outline-none' />   
+            <div className='hidden xl:flex p-1.5 bg-slate-100 dark:bg-slate-700 items-center rounded-xl'>
+            <input type="text" placeholder='Search' className='bg-transparent outline-none dark:text-white dark:placeholder-gray-400' />   
             <Image src="/search.png" alt='' width={14} height={14}/> 
             </div>  
          </div>
@@ -65,14 +65,16 @@ function Navbar(){
                 <div className='cursor-pointer'>
                 <Image src="/notifications.png" alt='' width={20} height={20} />
                 </div>
+                <ThemeToggle />
                 <UserButton />
             </SignedIn>
             
             <SignedOut>
                 <div className='flex items-center gap-2 text-sm'>
                 <Image src="/login.png" alt='' width={20} height={20} />
-                <Link href="/sign-in">Login/Register</Link>
+                <Link href="/sign-in" className="dark:text-white">Login/Register</Link>
                 </div>
+                <ThemeToggle />
             </SignedOut>
 
         </ClerkLoaded>

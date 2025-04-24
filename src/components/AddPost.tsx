@@ -13,10 +13,10 @@ function AddPost() {
   const [desc, setDesc] = useState("");
   const [img, setImg] = useState<any>();
 
-  if (!isLoaded) return "Loading.."; // or a loading spinner
+  if (!isLoaded) return <div className="dark:text-gray-300">Loading..</div>; // or a loading spinner
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg flex gap-4  justify-between text-sm">
+    <div className="p-4 bg-white dark:bg-gray-800 shadow-md rounded-lg flex gap-4 justify-between text-sm">
       {/* AVATAR */}
       <div className="">
         <Image
@@ -34,7 +34,7 @@ function AddPost() {
         <form action={(formData)=>addPost(formData,img?.secure_url||"")} className="flex gap-4">
           <textarea
             placeholder="What's on your mind?"
-            className="flex-1 bg-slate-100 rounded-lg p-2"
+            className="flex-1 bg-slate-100 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 rounded-lg p-2"
             name="desc"
             onChange={(e) => {
               setDesc(e.target.value);
@@ -54,7 +54,7 @@ function AddPost() {
 
         {/* POST OPTIONS */}
 
-        <div className="flex items-center gap-4 mt-4 text-gray-400 flex-wrap">
+        <div className="flex items-center gap-4 mt-4 text-gray-400 dark:text-gray-300 flex-wrap">
           <CldUploadWidget
             uploadPreset="socialsphere"
             onSuccess={(result, { widget }) => {
