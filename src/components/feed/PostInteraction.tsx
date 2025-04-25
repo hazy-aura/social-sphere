@@ -33,6 +33,24 @@ function PostInteraction({postId, likes,commentNumber}:{ postId: number, likes: 
         }
     }
 
+    const shareAction = async () => {
+      const shareUrl = `${window.location.origin}/posts/${postId}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Check out this post", url: shareUrl });
+        } catch (error) {
+          console.error("Share failed:", error);
+        }
+      } else {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          alert("Post link copied to clipboard");
+        } catch (error) {
+          console.error("Copy failed:", error);
+        }
+      }
+    };
+
     return (
         <div className="dark:text-gray-200">
           <div className="flex items-center justify-between text-sm mt-4">
@@ -69,7 +87,7 @@ function PostInteraction({postId, likes,commentNumber}:{ postId: number, likes: 
           </div>
         </div>
         <div className="">
-          <div className="flex items-center gap-4 bg-slate-100 dark:bg-gray-700 p-2 rounded-xl">
+          <button onClick={shareAction} className="flex items-center gap-4 bg-slate-100 dark:bg-gray-700 p-2 rounded-xl">
             <Image
               src="/share.png"
               alt=""
@@ -79,9 +97,9 @@ function PostInteraction({postId, likes,commentNumber}:{ postId: number, likes: 
             />
             <span className="text-gray-300 dark:text-gray-500">|</span>
             <span className="text-gray-500 dark:text-gray-300">
-           <span className="hidden md:inline"> Shares</span>
+              <span className="hidden md:inline">Share</span>
             </span>
-          </div>
+          </button>
         </div>
       </div>
         </div>

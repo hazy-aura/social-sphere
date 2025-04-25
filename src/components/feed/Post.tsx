@@ -7,7 +7,7 @@ import PostInfo from "./PostInfo";
 import { auth } from "@clerk/nextjs/server";
 
 type FeedPostType = PostType & { user: User } & {
-  likes: [{ userId: string }];
+  likes: { userId: string }[];
 } & { _count: { comments: number } };
 
 function Post({ post }: { post: FeedPostType }) {
