@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { Story, User } from "@prisma/client";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useOptimistic, useState } from "react";
+import { useOptimistic, useState, useEffect } from "react";
 import { set } from "zod";
 
 type StoryWithUser = Story & {
@@ -15,6 +15,7 @@ type StoryWithUser = Story & {
 function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: string }) {
   const [storyList, setStoryList] = useState(stories);
   const [img, setImg] = useState<any>();
+  const [selectedStory, setSelectedStory] = useState<StoryWithUser | null>(null);
 
   const {user,isLoaded} = useUser();
 
@@ -61,8 +62,57 @@ function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: stri
     }
   }
 
+  const goToNext = () => {
+    if (!selectedStory) return;
+    const index = optimisticStories.findIndex((s) => s.id === selectedStory.id);
+    if (index !== -1 && index < optimisticStories.length - 1) {
+      setSelectedStory(optimisticStories[index + 1]);
+    } else {
+      setSelectedStory(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedStory) return;
+    // only auto-advance images after 15s
+    const isVideo = /\.(mp4|webm|ogg)$/i.test(selectedStory.img);
+    if (isVideo) return;
+    const timer = setTimeout(goToNext, 15000);
+    return () => clearTimeout(timer);
+  }, [selectedStory, optimisticStories]);
+
   return (
     <>
+      {selectedStory && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+          onClick={() => setSelectedStory(null)}
+        >
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            {selectedStory.img.match(/\.(mp4|webm|ogg)$/i) ? (
+              <video
+                controls
+                autoPlay
+                onEnded={goToNext}
+                src={selectedStory.img}
+                className="max-w-full max-h-full object-contain"
+              />
+            ) : (
+              <Image
+                src={selectedStory.img}
+                alt="Story"
+                width={600}
+                height={600}
+                className="max-w-full max-h-full object-contain"
+              />
+            )}
+            <button
+              onClick={(e) => { e.stopPropagation(); setSelectedStory(null); }}
+              className="absolute top-2 right-2 text-white text-3xl"
+            >&times;</button>
+          </div>
+        </div>
+      )}
         <CldUploadWidget
             uploadPreset="socialsphere"
             onSuccess={(result, { widget }) => {
@@ -97,6 +147,7 @@ function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: stri
       {/* STORY */}
       {optimisticStories.map((story) => (
         <div
+          onClick={() => setSelectedStory(story)}
           className="flex flex-col items-center gap-2 cursor-pointer"
           key={story.id}
         >
