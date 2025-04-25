@@ -4,18 +4,32 @@ import { useUser } from "@clerk/nextjs";
 import { CldUploadWidget } from "next-cloudinary";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import AddPostButton from "./AddPostButton";
 import { addPost } from "@/lib/actions";
-import dynamic from 'next/dynamic';
-// Cast to any to bypass TS errors until type declarations are available
-const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false }) as any;
 
 function AddPost() {
   const { user, isLoaded } = useUser();
   const [desc, setDesc] = useState("");
   const [img, setImg] = useState<any>();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const pickerRef = useRef<HTMLElement|null>(null);
+
+  useEffect(() => {
+    import('emoji-picker-element');
+  }, []);
+
+  useEffect(() => {
+    if (!showEmojiPicker || !pickerRef.current) return;
+    const handler = (event: any) => {
+      setDesc(prev => prev + event.detail.unicode);
+      setShowEmojiPicker(false);
+    };
+    pickerRef.current.addEventListener('emoji-click', handler);
+    return () => {
+      pickerRef.current?.removeEventListener('emoji-click', handler);
+    };
+  }, [showEmojiPicker]);
 
   if (!isLoaded) return <div className="dark:text-gray-300">Loading..</div>; // or a loading spinner
 
@@ -56,12 +70,7 @@ function AddPost() {
           />
           {showEmojiPicker && (
             <div className="absolute bottom-8 right-0 z-50">
-              <EmojiPicker
-                onEmojiClick={(emojiData: any, event: any) => {
-                  setDesc(prev => prev + emojiData.emoji);
-                  setShowEmojiPicker(false);
-                }}
-              />
+              <emoji-picker ref={pickerRef} theme="auto"></emoji-picker>
             </div>
           )}
           <AddPostButton />
