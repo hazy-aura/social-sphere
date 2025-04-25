@@ -7,11 +7,15 @@ import Image from "next/image";
 import { useState } from "react";
 import AddPostButton from "./AddPostButton";
 import { addPost } from "@/lib/actions";
+import dynamic from 'next/dynamic';
+// Cast to any to bypass TS errors until type declarations are available
+const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false }) as any;
 
 function AddPost() {
   const { user, isLoaded } = useUser();
   const [desc, setDesc] = useState("");
   const [img, setImg] = useState<any>();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   if (!isLoaded) return <div className="dark:text-gray-300">Loading..</div>; // or a loading spinner
 
@@ -36,20 +40,32 @@ function AddPost() {
             placeholder="What's on your mind?"
             className="flex-1 bg-slate-100 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 rounded-lg p-2"
             name="desc"
+            value={desc}
             onChange={(e) => {
               setDesc(e.target.value);
             }}
           ></textarea>
-          <div className="">
+          <div className="relative">
           <Image
             src="/emoji.png"
             alt=""
             className="w-5 h-5 cursor-pointer self-end"
             width={20}
             height={20}
+            onClick={() => setShowEmojiPicker(prev => !prev)}
           />
-         <AddPostButton />
-         </div>
+          {showEmojiPicker && (
+            <div className="absolute bottom-8 right-0 z-50">
+              <EmojiPicker
+                onEmojiClick={(emojiData: any, event: any) => {
+                  setDesc(prev => prev + emojiData.emoji);
+                  setShowEmojiPicker(false);
+                }}
+              />
+            </div>
+          )}
+          <AddPostButton />
+          </div>
         </form>
 
         {/* POST OPTIONS */}

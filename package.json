@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^5.1.4",
     "@prisma/client": "^6.4.1",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
+    "emoji-picker-react": "^4.12.2",
     "next": "15.0.0-rc.0",
     "next-cloudinary": "^6.16.0",
     "prisma": "^6.5.0",

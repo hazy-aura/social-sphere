@@ -77,7 +77,7 @@ function StoryList({ stories, userId }: { stories: StoryWithUser[], userId: stri
     // only auto-advance images after 15s
     const isVideo = /\.(mp4|webm|ogg)$/i.test(selectedStory.img);
     if (isVideo) return;
-    const timer = setTimeout(goToNext, 15000);
+    const timer = setTimeout(goToNext, 5000);
     return () => clearTimeout(timer);
   }, [selectedStory, optimisticStories]);
 
