@@ -92,10 +92,10 @@ function CommentList({
       )}
 
       {/* COMMENTS */}
-      <div className="flex">
+      <div className="flex flex-col">
         {/* COMMENT */}
         {optimisticComments.map((comment) => (
-          <div className="flex gap-4 justify-between mt-6" key={comment.id}>
+          <div className="flex gap-4 mt-6" key={comment.id}>
             {/* AVATAR */}
             <Image
               src={comment.user.avatar || "noAvatar.png"}
