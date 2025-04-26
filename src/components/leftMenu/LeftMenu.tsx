@@ -2,14 +2,23 @@ import Link from "next/link";
 import ProfileCard from "./ProfileCard";
 import Image from "next/image";
 import Ad from "../Ad";
+import { auth } from "@clerk/nextjs/server";
+import prisma from "@/lib/Client";
 
-function LeftMenu({ type }: { type: "home" | "profile" }) {
+async function LeftMenu({ type }: { type: "home" | "profile" }) {
+  const { userId } = auth();
+  let username = "";
+  if (userId) {
+    const u = await prisma.user.findUnique({ where: { id: userId }, select: { username: true } });
+    username = u?.username ?? "";
+  }
+
   return (
     <div className="flex flex-col gap-6">
       {type === "home" && <ProfileCard />}
       <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md text-sm flex flex-col gap-2 text-gray-500 dark:text-gray-300">
         <Link
-          href="/"
+          href={`/profile/${username}`}
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700"
         >
           <Image src="/posts.png" alt="" width={20} height={20} />
