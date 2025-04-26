@@ -22,9 +22,11 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <div className="flex justify-center pt-6">
-      <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <Post post={post} />
+    <div className="min-h-[calc(100vh-64px-64px)] flex flex-col justify-start">
+      <div className="flex justify-center pt-6 flex-1">
+        <div className="w-full lg:w-[70%] xl:w-[50%]">
+          <Post post={post} />
+        </div>
       </div>
     </div>
   );

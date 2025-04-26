@@ -26,7 +26,7 @@ export default async function UsersSearchPage({ searchParams }: { searchParams: 
     : [];
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="min-h-[calc(100vh-64px-64px)] container mx-auto p-4 flex flex-col justify-start">
       <h1 className="text-2xl font-semibold mb-4">
         Search results for “{q}”
       </h1>
