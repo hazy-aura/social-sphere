@@ -40,10 +40,17 @@ function Navbar(){
             </span>
             </Link>
             </div>  
-            <div className='hidden xl:flex p-1.5 bg-slate-100 dark:bg-slate-700 items-center rounded-xl'>
-            <input type="text" placeholder='Search' className='bg-transparent outline-none dark:text-white dark:placeholder-gray-400' />   
-            <Image src="/search.png" alt='' width={14} height={14}/> 
-            </div>  
+            <form action="/search/users" method="get" className='hidden xl:flex p-1.5 bg-slate-100 dark:bg-slate-700 items-center rounded-xl'>
+                <input
+                    name="query"
+                    type="text"
+                    placeholder="Search users..."
+                    className="bg-transparent outline-none dark:text-white dark:placeholder-gray-400"
+                />
+                <button type="submit">
+                    <Image src="/search.png" alt="Search" width={14} height={14} />
+                </button>
+            </form>  
          </div>
 
         {/* RIGHT */}
