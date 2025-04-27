@@ -26,10 +26,10 @@ function Navbar(){
             </span>
             </Link>
             
-            <Link href='/' className='flex items-center gap-2'> 
+            <Link href='/friends' className='flex items-center gap-2'> 
             <Image src="/friends.png" alt="Friends" width={16} height={16} />
             <span>
-            Friends
+            Find Friends
             </span>
             </Link>
 
