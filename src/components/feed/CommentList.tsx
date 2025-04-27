@@ -4,7 +4,7 @@ import { addComment } from "@/lib/actions";
 import { useUser } from "@clerk/nextjs";
 import { Comment, User } from "@prisma/client";
 import Image from "next/image";
-import { useOptimistic, useState } from "react";
+import { useOptimistic, useState, useRef, useEffect } from "react";
 
 type CommentWithUser = Comment & { user: User };
 
@@ -18,6 +18,29 @@ function CommentList({
   const { user } = useUser();
   const [commentState, setCommentState] = useState(comments);
   const [desc, setDesc] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [optimisticComments, addOptimisticComments] = useOptimistic(
+    commentState,
+    (state, value: CommentWithUser) => [value, ...state]
+  );
+
+  useEffect(() => {
+    import('emoji-picker-element');
+  }, []);
+
+  const pickerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!showEmojiPicker || !pickerRef.current) return;
+    const handler = (event: any) => {
+      setDesc(prev => prev + event.detail.unicode);
+      setShowEmojiPicker(false);
+    };
+    pickerRef.current.addEventListener('emoji-click', handler);
+    return () => {
+      pickerRef.current?.removeEventListener('emoji-click', handler);
+    };
+  }, [showEmojiPicker]);
 
   const add = async()=>{
     if(!user|| !desc) return;
@@ -54,11 +77,6 @@ function CommentList({
     }
   }
 
-  const [optimisticComments, addOptimisticComments] = useOptimistic(
-    commentState,
-    (state, value: CommentWithUser) => [value, ...state]
-  );
-
   return (
     <div className="dark:text-gray-200">
       {user && (
@@ -72,21 +90,30 @@ function CommentList({
           />
           <form
             action={add}
-            className="flex flex-1 items-center justify-between bg-slate-100 dark:bg-gray-700 rounded-xl text-sm px-6 py-2 w-full"
+            className="relative flex flex-1 items-center justify-between bg-slate-100 dark:bg-gray-700 rounded-xl text-sm px-6 py-2 w-full"
           >
             <input
               type="text"
               placeholder="Write a comment..."
               className="bg-transparent outline-none flex-1 dark:text-gray-200 dark:placeholder-gray-400"
+              value={desc}
               onChange={(e) => setDesc(e.target.value)}
             />
-            <Image
-              src="/emoji.png"
-              alt=""
-              height={16}
-              width={16}
-              className="cursor-pointer"
-            />
+            <div className="relative">
+              <Image
+                src="/emoji.png"
+                alt=""
+                height={16}
+                width={16}
+                className="cursor-pointer"
+                onClick={() => setShowEmojiPicker(prev => !prev)}
+              />
+              {showEmojiPicker && (
+                <div className="absolute bottom-8 right-0 z-50">
+                  <emoji-picker ref={pickerRef} theme="auto"></emoji-picker>
+                </div>
+              )}
+            </div>
           </form>
         </div>
       )}
