@@ -36,7 +36,7 @@ async function LeftMenu({ type }: { type: "home" | "profile" }) {
         <hr className="border-t-1 border-gray-100 dark:border-gray-600 w-36 self-center" />
 
         <Link
-          href="/"
+          href="https://www.amazon.in/"
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700"
         >
           <Image src="/market.png" alt="" width={20} height={20} />
@@ -45,7 +45,7 @@ async function LeftMenu({ type }: { type: "home" | "profile" }) {
         <hr className="border-t-1 border-gray-100 dark:border-gray-600 w-36 self-center" />
 
         <Link
-          href="/"
+          href="https://calendar.google.com/calendar"
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700"
         >
           <Image src="/events.png" alt="" width={20} height={20} />
@@ -90,7 +90,7 @@ async function LeftMenu({ type }: { type: "home" | "profile" }) {
         <hr className="border-t-1 border-gray-100 dark:border-gray-600 w-36 self-center" />
 
         <Link
-          href="/"
+          href="https://www.udemy.com/"
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700"
         >
           <Image src="/courses.png" alt="" width={20} height={20} />
@@ -99,7 +99,7 @@ async function LeftMenu({ type }: { type: "home" | "profile" }) {
         <hr className="border-t-1 border-gray-100 dark:border-gray-600 w-36 self-center" />
 
         <Link
-          href="/"
+          href="/settings"
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700"
         >
           <Image src="/settings.png" alt="" width={20} height={20} />
