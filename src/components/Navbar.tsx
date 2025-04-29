@@ -3,11 +3,12 @@ import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import Image from 'next/image';
 import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react';
 import ThemeToggle from './ThemeToggle';
 
 
 function Navbar(){
+     const { user } = useUser();
     return(
         <div className=" h-24 flex items-center justify-between"> 
         {/* Left */}
@@ -61,9 +62,9 @@ function Navbar(){
         </ClerkLoading>
         <ClerkLoaded>
             <SignedIn>
-                <div className='cursor-pointer'>
+                <Link href={`/profile/${user?.username}`} className='cursor-pointer'>
                     <Image src="/people.png" alt='' width={24} height={24} />
-                </div>
+                </Link>
                 
                 <div className='cursor-pointer'>
                 <Image src="/messages.png" alt='' width={20} height={20} />
