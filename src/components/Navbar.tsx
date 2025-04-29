@@ -33,7 +33,7 @@ function Navbar(){
             </span>
             </Link>
 
-            <Link href='/' className='flex items-center gap-2'> 
+            <Link href='/stories' className='flex items-center gap-2'> 
             <Image src="/stories.png" alt="Stories" width={16} height={16} />
             <span>
             Stories
