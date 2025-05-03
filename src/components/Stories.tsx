@@ -18,7 +18,7 @@ async function Stories() {
           user: {
             followers: {
               some: {
-                followerId: currentUserId,
+                followingId: currentUserId,
               },
             },
           },
